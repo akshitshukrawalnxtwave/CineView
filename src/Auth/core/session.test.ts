@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { getSession, setSession, clearSession, isAuthenticated } from '../core/session'
+import { getSession, setSession, clearSession, isAuthenticated } from '@/Auth/core/session'
 
 describe('session utilities', () => {
   beforeEach(() => {

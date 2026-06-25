@@ -1,4 +1,4 @@
-import { PlaceholderPage } from '../../Common/ui/PlaceholderPage'
+import { PlaceholderPage } from '@/Common/ui/PlaceholderPage'
 
 export function SearchPage() {
   return (
