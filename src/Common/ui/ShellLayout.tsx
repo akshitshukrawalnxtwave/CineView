@@ -4,6 +4,8 @@ import { observer } from 'mobx-react-lite'
 import { ThemeToggle } from '@/Preferences/ui/ThemeToggle'
 import { preferencesStore } from '@/Preferences'
 import { useTranslation } from 'react-i18next'
+import { watchlistStore } from '@/Collection'
+
 export const ShellLayout = observer(function ShellLayout() {
 
   const navigate = useNavigate()
@@ -32,7 +34,7 @@ export const ShellLayout = observer(function ShellLayout() {
           <div className="flex items-center gap-1">
             {[
               { to: '/', label: t('nav.home'), end: true },
-              { to: '/watchlist', label: t('nav.watchlist'), badge: 0 },
+              { to: '/watchlist', label: t('nav.watchlist'), badge: watchlistStore.totalCount },
               { to: '/lists', label: t('nav.lists') },
               { to: '/settings', label: t('nav.settings') },
             ].map(({ to, label, end, badge }) => (

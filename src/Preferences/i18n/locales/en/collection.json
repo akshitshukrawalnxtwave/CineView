@@ -1,0 +1,24 @@
+{
+    "title": "Watchlist",
+    "addToWatchlist": "Add to watchlist",
+    "removeFromWatchlist": "Remove from watchlist",
+    "remove": "Remove",
+    "empty": "Your watchlist is empty. Browse movies and shows to add some!",
+    "emptyFiltered": "No items with this status.",
+    "note": "Note",
+    "notePlaceholder": "Add a note (max 300 characters)...",
+    "movie": "Movie",
+    "tvShow": "TV Show",
+    "filters": {
+      "all": "All",
+      "want_to_watch": "Want to watch",
+      "watching": "Watching",
+      "completed": "Completed"
+    },
+    "sort": {
+      "label": "Sort by",
+      "dateAdded": "Date added",
+      "rating": "Rating",
+      "title": "Title"
+    }
+  }

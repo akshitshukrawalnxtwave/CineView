@@ -14,6 +14,10 @@ import esSettings from './locales/es/settings.json'
 import enTv from './locales/en/tv.json'
 import esTv from './locales/es/tv.json'
 
+import enCollection from './locales/en/collection.json'
+import esCollection from './locales/es/collection.json'
+
+// inside resources.en:
 void i18n.use(initReactI18next).init({
   resources: {
     en: {
@@ -23,6 +27,7 @@ void i18n.use(initReactI18next).init({
       search: enSearch,
       settings: enSettings,
       tv: enTv,
+      collection: enCollection,
     },
     es: {
       common: esCommon,
@@ -31,6 +36,7 @@ void i18n.use(initReactI18next).init({
       search: esSearch,
       settings: esSettings,
       tv: esTv,
+      collection: esCollection,
     },
   },
   lng: 'en',

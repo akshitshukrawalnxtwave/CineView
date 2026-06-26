@@ -11,8 +11,9 @@
       "seasons": "Temporadas"
     },
     "hero": {
-      "playTrailer": "Reproducir tráiler",
-      "watchlist": "Mi lista"
+      "watchlist": "Mi lista",
+      "viewDetails": "Ver detalles",
+      "playTrailer": "Reproducir tráiler"
     },
     "states": {
       "noOverview": "Sinopsis no disponible.",

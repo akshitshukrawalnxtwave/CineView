@@ -7,6 +7,8 @@ import { TrailerModal } from './TrailerModal'
 import { useMovieDetail } from './useMovieDetail'
 import { preferencesStore } from '@/Preferences'
 import { useTranslation } from 'react-i18next'
+import { movieDetailToMediaItem } from '../core/types'
+import { WatchlistToggle } from '@/Collection'
 function RowSection({
   title,
   row,
@@ -114,14 +116,7 @@ export function MovieDetailPage() {
                         {t('hero.playTrailer')}
                       </button>
                     )}
-
-                    <button
-                      type="button"
-                      onClick={() => {}}
-                      className="rounded-full border border-[var(--color-border)] px-6 py-2.5 text-sm font-semibold text-[var(--color-text-primary)] hover:bg-[var(--color-bg-card)] transition-colors"
-                    >
-                      {t('watchlist')}
-                    </button>
+                    <WatchlistToggle item={movieDetailToMediaItem(movie)} variant="button" />
                   </div>
                 </div>
               </div>

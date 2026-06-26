@@ -6,6 +6,8 @@ import { TrailerModal } from '@/Movies/ui/TrailerModal'
 import { useTVShowDetail } from './useTVShowDetail'
 import { useTranslation } from 'react-i18next'
 import { preferencesStore } from '@/Preferences'
+import { WatchlistToggle } from '@/Collection'
+import { tvShowToMediaItem } from '../core/types'
 
 export function TVShowDetailPage() {
   const { id } = useParams()
@@ -68,12 +70,7 @@ export function TVShowDetailPage() {
                         {t('hero.playTrailer')}
                       </button>
                     )}
-                    <button
-                      type="button"
-                      className="rounded-full border border-[var(--color-border)] px-6 py-2.5 text-sm font-semibold text-[var(--color-text-primary)]"
-                    >
-                      {t('hero.watchlist')}
-                    </button>
+                    <WatchlistToggle item={tvShowToMediaItem(show)} variant="button" />
                   </div>
                 </div>
               </div>

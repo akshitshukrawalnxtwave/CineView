@@ -1,19 +1,35 @@
 {
-    "rows": {
-      "popular": "Popular",
-      "topRated": "Top Rated",
-      "airingToday": "Airing Today"
-    },
-  
-    "details": {
-      "overview": "Overview",
-      "cast": "Cast",
-      "episodes": "Episodes",
-      "seasons": "Seasons"
-    },
-  
-    "seasonCount_one": "{{count}} season",
-    "seasonCount_other": "{{count}} seasons",
-  
-    "notFound": "TV show not found"
-  }
+  "rows": {
+    "popular": "Popular",
+    "topRated": "Top Rated",
+    "airingToday": "Airing Today"
+  },
+  "details": {
+    "overview": "Overview",
+    "cast": "Cast",
+    "episodes": "Episodes",
+    "seasons": "Seasons"
+  },
+  "hero": {
+    "viewDetails": "View Details",
+    "playTrailer": "Play Trailer"
+  },
+  "states": {
+    "noOverview": "Overview not available.",
+    "noResults": "No results found.",
+    "noEpisodes": "No episodes found.",
+    "noSeasons": "No seasons found.",
+    "noCast": "No cast found.",
+    "noTrailers": "No trailers found.",
+    "noRecommendations": "No recommendations found.",
+    "noSimilar": "No similar found."
+  },
+  "actions": {
+    "markEpisodeAsWatched": "Mark episode as watched",
+    "markSeasonAsWatched": "Mark season as watched",
+    "markShowAsWatched": "Mark show as watched"
+  },
+  "seasonCount_one": "{{count}} season",
+  "seasonCount_other": "{{count}} seasons",
+  "notFound": "Show not found"
+}

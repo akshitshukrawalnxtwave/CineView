@@ -7,6 +7,9 @@ import { preferencesStore } from './Preferences'
 preferencesStore.hydrate()
 void i18n.changeLanguage(preferencesStore.language)
 
+import { initWatchlist } from '@/Collection'
+initWatchlist()
+
 const rootEl = document.getElementById('root')
 if (!rootEl) throw new Error('Root element not found')
 

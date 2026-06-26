@@ -1,0 +1,24 @@
+{
+    "title": "Mi lista",
+    "addToWatchlist": "Añadir a mi lista",
+    "removeFromWatchlist": "Quitar de mi lista",
+    "remove": "Eliminar",
+    "empty": "Tu lista está vacía. ¡Explora películas y series para añadir algunas!",
+    "emptyFiltered": "No hay elementos con este estado.",
+    "note": "Nota",
+    "notePlaceholder": "Añade una nota (máx. 300 caracteres)...",
+    "movie": "Película",
+    "tvShow": "Serie",
+    "filters": {
+      "all": "Todos",
+      "want_to_watch": "Quiero ver",
+      "watching": "Viendo",
+      "completed": "Completado"
+    },
+    "sort": {
+      "label": "Ordenar por",
+      "dateAdded": "Fecha añadida",
+      "rating": "Valoración",
+      "title": "Título"
+    }
+  }

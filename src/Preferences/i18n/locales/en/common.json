@@ -15,5 +15,14 @@
       "loading": "Loading...",
       "noResults": "No results found.",
       "notFound": "Page not found"
+    },
+    "footer": {
+      "title": "Cine View",
+      "description": "Cine View is a platform that allows you to search for movies and TV shows.",
+      "dataProvidedBy": "Data provided by",
+      "explore": "Explore",
+      "legal": "Legal",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service"
     }
   }

@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom'
 import { PosterImage } from '@/Common'
 import type { MediaItem } from '@/Common'
-import { useTranslation } from 'react-i18next'
+import { WatchlistToggle } from '@/Collection'
 
 interface Props {
   movie: MediaItem
 }
 
 export function MovieCard({ movie }: Props) {
-  const { t } = useTranslation('movies')
   const href = movie.mediaType === 'tv' ? `/tv/${movie.id}` : `/movie/${movie.id}`
 
   return (
@@ -27,21 +26,11 @@ export function MovieCard({ movie }: Props) {
           </span>
 
           {/* Watchlist placeholder — wired in M5 */}
-          <button
-            type="button"
-            aria-label="Add to watchlist"
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-            }}
-            className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity group-hover:opacity-100"
-          >
-            +
-          </button>
+          <WatchlistToggle item={movie} />
         </div>
 
         <h3 className="mt-2 line-clamp-2 text-sm font-medium text-[var(--color-text-primary)]">
-          {t(movie.title)}
+          {movie.title}
         </h3>
 
         {movie.releaseDate && (
