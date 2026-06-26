@@ -44,7 +44,16 @@ async function fetchRow(
   }
 }
 
-export function useHomePage(language: string, region: string): UseHomePageResult {
+function isoDate(daysOffset = 0): string {
+  const date = new Date()
+  date.setDate(date.getDate() + daysOffset)
+  return date.toISOString().slice(0, 10)
+}
+
+export function useHomePage(
+  _language: string,
+  _region: string
+): UseHomePageResult {
   const [heroMovie, setHeroMovie] = useState<MediaItem | null>(null)
   const [genres, setGenres] = useState<Genre[]>([])
   const [activeGenreId, setActiveGenreId] = useState<number | null>(null)
@@ -53,7 +62,6 @@ export function useHomePage(language: string, region: string): UseHomePageResult
   const [popular, setPopular] = useState<RowState>(emptyRow)
   const [topRated, setTopRated] = useState<RowState>(emptyRow)
   const [upcoming, setUpcoming] = useState<RowState>(emptyRow)
-  
 
   const loadRows = useCallback(async (genreId: number | null) => {
     setTrending((r) => ({ ...r, isLoading: true, error: null }))
@@ -61,23 +69,59 @@ export function useHomePage(language: string, region: string): UseHomePageResult
     setTopRated((r) => ({ ...r, isLoading: true, error: null }))
     setUpcoming((r) => ({ ...r, isLoading: true, error: null }))
 
-    const rowFetcher = genreId
-      ? () => discoverMoviesByGenre(genreId)
-      : null
+    let t: { items: MediaItem[]; error: string | null }
+    let p: { items: MediaItem[]; error: string | null }
+    let tr: { items: MediaItem[]; error: string | null }
+    let u: { items: MediaItem[]; error: string | null }
 
-    const [t, p, tr, u] = await Promise.all([
-      fetchRow(genreId ? rowFetcher! : getTrendingMovies),
-      fetchRow(genreId ? rowFetcher! : getPopularMovies),
-      fetchRow(genreId ? rowFetcher! : getTopRatedMovies),
-      fetchRow(genreId ? rowFetcher! : getUpcomingMovies),
-    ])
+    if (genreId) {
+      const today = isoDate()
+      const threeMonthsAgo = isoDate(-90)
+
+      ;[t, p, tr, u] = await Promise.all([
+        // Trending ≈ popular recent releases in this genre
+        fetchRow(() =>
+          discoverMoviesByGenre(genreId, {
+            sortBy: 'popularity.desc',
+            releaseDateGte: threeMonthsAgo,
+          })
+        ),
+        // Popular in this genre
+        fetchRow(() =>
+          discoverMoviesByGenre(genreId, { sortBy: 'popularity.desc' })
+        ),
+        // Top rated in this genre
+        fetchRow(() =>
+          discoverMoviesByGenre(genreId, {
+            sortBy: 'vote_average.desc',
+            voteCountGte: 200,
+          })
+        ),
+        // Upcoming in this genre
+        fetchRow(() =>
+          discoverMoviesByGenre(genreId, {
+            sortBy: 'primary_release_date.asc',
+            releaseDateGte: today,
+          })
+        ),
+      ])
+
+      setHeroMovie(null)
+    } else {
+      ;[t, p, tr, u] = await Promise.all([
+        fetchRow(getTrendingMovies),
+        fetchRow(getPopularMovies),
+        fetchRow(getTopRatedMovies),
+        fetchRow(getUpcomingMovies),
+      ])
+
+      if (t.items[0]) setHeroMovie(t.items[0])
+    }
 
     setTrending({ items: t.items, isLoading: false, error: t.error })
     setPopular({ items: p.items, isLoading: false, error: p.error })
     setTopRated({ items: tr.items, isLoading: false, error: tr.error })
     setUpcoming({ items: u.items, isLoading: false, error: u.error })
-
-    if (!genreId && t.items[0]) setHeroMovie(t.items[0])
   }, [])
 
   const loadGenres = useCallback(async () => {
@@ -91,11 +135,11 @@ export function useHomePage(language: string, region: string): UseHomePageResult
 
   useEffect(() => {
     void loadGenres()
-    void loadRows(null)
-  }, [loadGenres, loadRows, language, region])
+  }, [loadGenres])
+
   useEffect(() => {
     void loadRows(activeGenreId)
-  }, [activeGenreId, loadRows, language, region])
+  }, [activeGenreId, loadRows, _language, _region])
 
   return {
     heroMovie,

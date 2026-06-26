@@ -25,7 +25,7 @@ export const ShellLayout = observer(function ShellLayout() {
             to="/"
             className="text-lg font-bold text-[var(--color-text-primary)] hover:text-[var(--color-brand-light)] transition-colors shrink-0"
           >
-            {t('nav.title')}
+            {t('footer.title')}
           </Link>
 
           {/* Nav links */}

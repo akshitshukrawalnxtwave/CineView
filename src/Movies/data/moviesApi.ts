@@ -27,8 +27,21 @@ export function getMovieGenres() {
   return tmdbFetch('/genre/movie/list', genreListSchema)
 }
 
-export function discoverMoviesByGenre(genreId: number) {
-  return tmdbFetch('/discover/movie', movieListSchema, { with_genres: genreId })
+type DiscoverOptions = {
+  sortBy?: string
+  releaseDateGte?: string
+  releaseDateLte?: string
+  voteCountGte?: number
+}
+export function discoverMoviesByGenre(genreId: number, options: DiscoverOptions = {}) {
+  const params: Record<string, string | number> = {
+    with_genres: genreId,
+    sort_by: options.sortBy ?? 'popularity.desc',
+  }
+  if (options.releaseDateGte) params['primary_release_date.gte'] = options.releaseDateGte
+  if (options.releaseDateLte) params['primary_release_date.lte'] = options.releaseDateLte
+  if (options.voteCountGte) params['vote_count.gte'] = options.voteCountGte
+  return tmdbFetch('/discover/movie', movieListSchema, params)
 }
 
 
