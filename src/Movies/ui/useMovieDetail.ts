@@ -36,7 +36,7 @@ function pickTrailerKey(videos: { key: string; site: string; type: string }[]): 
   return trailer?.key ?? null
 }
 
-export function useMovieDetail(): UseMovieDetailResult {
+export function useMovieDetail(language: string, region: string): UseMovieDetailResult {
   const { id } = useParams()
   const movieId = Number(id)
 
@@ -103,7 +103,7 @@ export function useMovieDetail(): UseMovieDetailResult {
 
   useEffect(() => {
     void fetchAll()
-  }, [fetchAll])
+  }, [fetchAll, language, region])
 
   return {
     movie,

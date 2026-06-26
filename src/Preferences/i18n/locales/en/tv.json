@@ -1,0 +1,19 @@
+{
+    "rows": {
+      "popular": "Popular",
+      "topRated": "Top Rated",
+      "airingToday": "Airing Today"
+    },
+  
+    "details": {
+      "overview": "Overview",
+      "cast": "Cast",
+      "episodes": "Episodes",
+      "seasons": "Seasons"
+    },
+  
+    "seasonCount_one": "{{count}} season",
+    "seasonCount_other": "{{count}} seasons",
+  
+    "notFound": "TV show not found"
+  }

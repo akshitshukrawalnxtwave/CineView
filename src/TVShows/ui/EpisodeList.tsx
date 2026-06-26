@@ -1,15 +1,18 @@
 import { posterUrl } from '@/Common'
 import type { Episode } from '../core/types'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   episodes: Episode[]
 }
 
 export function EpisodeList({ episodes }: Props) {
+  const { t } = useTranslation('tv')
+
   if (episodes.length === 0) {
     return (
       <p className="px-6 py-8 text-center text-[var(--color-text-muted)]">
-        No episodes found for this season.
+        {t('noEpisodes')}
       </p>
     )
   }
@@ -33,7 +36,7 @@ export function EpisodeList({ episodes }: Props) {
               />
             ) : (
               <div className="flex h-24 w-40 shrink-0 items-center justify-center rounded-lg bg-[var(--color-bg-secondary)] text-xs text-[var(--color-text-muted)]">
-                No image
+                {t('states.noResults')}
               </div>
             )}
 
@@ -41,9 +44,9 @@ export function EpisodeList({ episodes }: Props) {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-xs text-[var(--color-text-muted)]">
-                    E{episode.episode_number}
+                    {t('seasonCount_one', { count: episode.episode_number })}
                     {episode.air_date && ` · ${episode.air_date}`}
-                    {episode.runtime != null && ` · ${episode.runtime} min`}
+                    {episode.runtime != null && ` · ${episode.runtime} ${t('minutes')}`}
                   </p>
                   <h3 className="font-semibold text-[var(--color-text-primary)]">
                     {episode.name}
@@ -54,13 +57,13 @@ export function EpisodeList({ episodes }: Props) {
                 <input
                   type="checkbox"
                   disabled
-                  aria-label={`Mark episode ${episode.episode_number} as watched`}
+                  aria-label={t('actions.markEpisodeAsWatched', { count: episode.episode_number })}
                   className="mt-1 h-4 w-4 cursor-not-allowed opacity-50"
                 />
               </div>
 
               <p className="mt-2 line-clamp-3 text-sm text-[var(--color-text-secondary)]">
-                {episode.overview || 'No synopsis available.'}
+                {episode.overview || t('states.noResults')}
               </p>
             </div>
           </article>

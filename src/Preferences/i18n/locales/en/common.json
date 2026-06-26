@@ -1,0 +1,19 @@
+{
+    "nav": {
+      "home": "Home",
+      "watchlist": "Watchlist",
+      "lists": "Lists",
+      "settings": "Settings",
+      "searchPlaceholder": "Search movies, shows...",
+      "signOut": "Sign out"
+    },
+    "actions": {
+      "tryAgain": "Try again",
+      "backToHome": "Back to Home"
+    },
+    "states": {
+      "loading": "Loading...",
+      "noResults": "No results found.",
+      "notFound": "Page not found"
+    }
+  }

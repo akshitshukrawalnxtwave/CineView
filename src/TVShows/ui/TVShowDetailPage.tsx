@@ -4,19 +4,21 @@ import { AsyncSection, ErrorBoundary, backdropUrl, PosterImage } from '@/Common'
 import { CastCarousel } from '@/Movies/ui/CastCarousel'
 import { TrailerModal } from '@/Movies/ui/TrailerModal'
 import { useTVShowDetail } from './useTVShowDetail'
+import { useTranslation } from 'react-i18next'
+import { preferencesStore } from '@/Preferences'
 
 export function TVShowDetailPage() {
   const { id } = useParams()
-  const { show, cast, trailerKey, isLoading, error, notFound, refetch } = useTVShowDetail()
+  const { show, cast, trailerKey, isLoading, error, notFound, refetch } = useTVShowDetail(preferencesStore.tmdbLanguage, preferencesStore.tmdbRegion)
   const [trailerOpen, setTrailerOpen] = useState(false)
-
+  const { t } = useTranslation('tv')
   if (notFound) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
         <h1 className="text-6xl font-bold text-[var(--color-brand-light)]">404</h1>
-        <p className="mt-4 text-[var(--color-text-secondary)]">TV show not found.</p>
+        <p className="mt-4 text-[var(--color-text-secondary)]">{t('notFound')}</p>
         <Link to="/" className="mt-6 rounded-full bg-[var(--color-brand)] px-6 py-2.5 text-sm font-semibold text-white">
-          Back to Home
+          {t('backToHome')}
         </Link>
       </div>
     )
@@ -53,7 +55,7 @@ export function TVShowDetailPage() {
                       {show.vote_average.toFixed(1)}
                     </span>
                     {show.first_air_date && <span>{show.first_air_date.slice(0, 4)}</span>}
-                    <span>{show.number_of_seasons} seasons</span>
+                    <span>{t('seasonCount_other', { count: show.number_of_seasons })}</span>
                     <span>{show.genres.map((g) => g.name).join(' · ')}</span>
                   </div>
                   <div className="mt-6 flex gap-3">
@@ -63,14 +65,14 @@ export function TVShowDetailPage() {
                         onClick={() => setTrailerOpen(true)}
                         className="rounded-full bg-[var(--color-brand)] px-6 py-2.5 text-sm font-semibold text-white"
                       >
-                        ▶ Play Trailer
+                        {t('hero.playTrailer')}
                       </button>
                     )}
                     <button
                       type="button"
                       className="rounded-full border border-[var(--color-border)] px-6 py-2.5 text-sm font-semibold text-[var(--color-text-primary)]"
                     >
-                      + Watchlist
+                      {t('hero.watchlist')}
                     </button>
                   </div>
                 </div>
@@ -79,15 +81,15 @@ export function TVShowDetailPage() {
 
             {/* Overview */}
             <section className="mb-8 px-6">
-              <h2 className="mb-3 text-xl font-bold text-[var(--color-text-primary)]">Overview</h2>
+              <h2 className="mb-3 text-xl font-bold text-[var(--color-text-primary)]">{t('details.overview')}</h2>
               <p className="max-w-4xl text-[var(--color-text-secondary)]">
-                {show.overview || 'No overview available.'}
+                {show.overview || t('details.noOverviewAvailable')}
               </p>
             </section>
 
             {/* Seasons */}
             <section className="mb-8 px-6">
-              <h2 className="mb-4 text-xl font-bold text-[var(--color-text-primary)]">Seasons</h2>
+              <h2 className="mb-4 text-xl font-bold text-[var(--color-text-primary)]">{t('details.seasons')}</h2>
               <div className="flex flex-wrap gap-2">
                 {show.seasons
                   .filter((s) => s.season_number > 0)
@@ -103,7 +105,7 @@ export function TVShowDetailPage() {
                         }`
                       }
                     >
-                      {s.name} ({s.episode_count})
+                      {s.name} ({t('seasonCount_one', { count: s.episode_count })})
                     </NavLink>
                   ))}
               </div>

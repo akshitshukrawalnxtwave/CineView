@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
 import { PosterImage } from '@/Common'
 import type { MediaItem } from '@/Common'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   movie: MediaItem
 }
 
 export function MovieCard({ movie }: Props) {
+  const { t } = useTranslation('movies')
   const href = movie.mediaType === 'tv' ? `/tv/${movie.id}` : `/movie/${movie.id}`
 
   return (
@@ -39,7 +41,7 @@ export function MovieCard({ movie }: Props) {
         </div>
 
         <h3 className="mt-2 line-clamp-2 text-sm font-medium text-[var(--color-text-primary)]">
-          {movie.title}
+          {t(movie.title)}
         </h3>
 
         {movie.releaseDate && (

@@ -3,7 +3,7 @@ import { AsyncSection } from '@/Common'
 import { ContentRow } from '@/Movies/ui/ContentRow'
 import { PersonCard } from './PersonCard'
 import type { PersonResult } from '../core/types'
-
+import { useTranslation } from 'react-i18next'
 interface Props {
   movies: MediaItem[]
   tvShows: MediaItem[]
@@ -25,21 +25,23 @@ export function SearchResults({
 
   const isEmpty = movies.length === 0 && tvShows.length === 0 && people.length === 0
 
+  const { t } = useTranslation('search')
+
   return (
     <AsyncSection
       isLoading={isLoading}
       error={error}
       isEmpty={isEmpty}
-      emptyMessage="No results found. Try a different search."
+      emptyMessage={t('noResults')}
     >
-      {movies.length > 0 && <ContentRow title="Movies" items={movies} />}
+      {movies.length > 0 && <ContentRow title={t('movies')} items={movies} />}
 
-      {tvShows.length > 0 && <ContentRow title="TV Shows" items={tvShows} />}
+      {tvShows.length > 0 && <ContentRow title={t('tvShows')} items={tvShows} />}
 
       {people.length > 0 && (
         <section className="mb-10">
           <h2 className="mb-4 px-6 text-xl font-bold text-[var(--color-text-primary)]">
-            People
+            {t('people')}
           </h2>
           <div className="flex gap-4 overflow-x-auto px-6 pb-2">
             {people.map((person) => (

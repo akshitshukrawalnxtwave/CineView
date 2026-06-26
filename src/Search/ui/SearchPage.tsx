@@ -1,6 +1,7 @@
 import { AsyncSection } from '@/Common'
 import { SearchResults } from './SearchResults'
 import { useSearch } from './useSearch'
+import { useTranslation } from 'react-i18next'
 
 export function SearchPage() {
   const {
@@ -16,6 +17,8 @@ export function SearchPage() {
     selectRecentSearch,
   } = useSearch()
 
+  const { t } = useTranslation('search')
+
   return (
     <div className="py-8">
       <div className="px-6">
@@ -27,7 +30,7 @@ export function SearchPage() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search movies, TV shows, people..."
+          placeholder={t('placeholder')}
           autoFocus
           className="w-full max-w-2xl rounded-full border border-[var(--color-border)] bg-[var(--color-bg-card)] px-5 py-3 text-[var(--color-text-primary)] outline-none focus:border-[var(--color-brand)]"
         />

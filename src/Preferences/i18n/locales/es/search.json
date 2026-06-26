@@ -1,0 +1,10 @@
+{
+    "title": "Buscar",
+    "placeholder": "Buscar películas, series, personas...",
+    "minChars": "Escribe al menos 2 caracteres para buscar.",
+    "recentSearches": "Búsquedas recientes",
+    "movies": "Películas",
+    "tvShows": "Series",
+    "people": "Personas",
+    "noResults": "No se encontraron resultados. Prueba otra búsqueda."
+  }

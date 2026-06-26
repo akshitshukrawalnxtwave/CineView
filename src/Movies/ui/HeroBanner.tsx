@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { backdropUrl } from '@/Common'
 import type { MediaItem } from '@/Common'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   movie: MediaItem
@@ -9,6 +10,7 @@ interface Props {
 
 export function HeroBanner({ movie, onPlayTrailer }: Props) {
   const backdrop = backdropUrl(movie.backdropPath, 'w1280')
+  const { t } = useTranslation('movies')
 
   return (
     <section className="relative mb-10 h-[420px] w-full overflow-hidden">
@@ -27,7 +29,7 @@ export function HeroBanner({ movie, onPlayTrailer }: Props) {
 
       <div className="relative z-10 flex h-full max-w-7xl flex-col justify-end px-6 pb-12">
         <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-[var(--color-brand-light)]">
-          Trending Today
+          {t('hero.trendingToday')}
         </p>
 
         <h1 className="mb-3 max-w-2xl text-4xl font-bold text-[var(--color-text-primary)] md:text-5xl">
@@ -50,7 +52,7 @@ export function HeroBanner({ movie, onPlayTrailer }: Props) {
             to={`/movie/${movie.id}`}
             className="rounded-full bg-[var(--color-brand)] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[var(--color-brand-light)] transition-colors"
           >
-            View Details
+            {t('hero.viewDetails')}
           </Link>
 
           <button
@@ -58,7 +60,7 @@ export function HeroBanner({ movie, onPlayTrailer }: Props) {
             onClick={onPlayTrailer}
             className="rounded-full border border-[var(--color-border)] bg-white/10 px-6 py-2.5 text-sm font-semibold text-white hover:bg-white/20 transition-colors"
           >
-            ▶ Trailer
+            {t('hero.playTrailer')}
           </button>
         </div>
       </div>

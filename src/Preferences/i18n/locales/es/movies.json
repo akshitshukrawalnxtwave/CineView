@@ -1,0 +1,22 @@
+{
+    "rows": {
+      "trending": "Tendencias",
+      "popular": "Populares",
+      "topRated": "Mejor valoradas",
+      "upcoming": "Próximamente"
+    },
+    "hero": {
+      "trendingToday": "Tendencias de hoy",
+      "viewDetails": "Ver detalles",
+      "playTrailer": "Reproducir tráiler"
+    },
+    "genreAll": "Todos",
+    "overview": "Sinopsis",
+    "cast": "Reparto",
+    "similar": "Similares",
+    "recommended": "Recomendadas",
+    "watchlist": "Mi lista",
+    "notFound": "Película no encontrada",
+    "seasonCount_one": "{{count}} temporada",
+    "seasonCount_other": "{{count}} temporadas"
+  }

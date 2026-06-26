@@ -1,0 +1,13 @@
+{
+  "rows": { "trending": "Trending", "popular": "Popular", "topRated": "Top Rated", "upcoming": "Upcoming" },
+  "hero": { "trendingToday": "Trending Today", "viewDetails": "View Details", "playTrailer": "Play Trailer" },
+  "genreAll": "All",
+  "overview": "Overview",
+  "cast": "Cast",
+  "similar": "Similar",
+  "recommended": "Recommended",
+  "watchlist": "Watchlist",
+  "notFound": "Movie not found",
+  "seasonCount_one": "{{count}} season",
+  "seasonCount_other": "{{count}} seasons"
+}

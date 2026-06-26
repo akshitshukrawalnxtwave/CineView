@@ -1,0 +1,10 @@
+{
+    "title": "Search",
+    "placeholder": "Search movies, TV shows, people...",
+    "minChars": "Type at least 2 characters to search.",
+    "recentSearches": "Recent searches",
+    "movies": "Movies",
+    "tvShows": "TV Shows",
+    "people": "People",
+    "noResults": "No results found. Try a different search."
+  }

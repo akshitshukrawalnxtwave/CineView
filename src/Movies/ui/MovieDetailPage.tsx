@@ -5,7 +5,8 @@ import { ContentRow } from './ContentRow'
 import { CastCarousel } from './CastCarousel'
 import { TrailerModal } from './TrailerModal'
 import { useMovieDetail } from './useMovieDetail'
-
+import { preferencesStore } from '@/Preferences'
+import { useTranslation } from 'react-i18next'
 function RowSection({
   title,
   row,
@@ -38,10 +39,10 @@ export function MovieDetailPage() {
     error,
     notFound,
     refetch,
-  } = useMovieDetail()
+  } = useMovieDetail(preferencesStore.language, preferencesStore.region)
 
   const [trailerOpen, setTrailerOpen] = useState(false)
-
+  const { t } = useTranslation('movies')
   if (notFound) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
@@ -99,7 +100,7 @@ export function MovieDetailPage() {
                       {movie.vote_average.toFixed(1)}
                     </span>
                     {movie.release_date && <span>{movie.release_date.slice(0, 4)}</span>}
-                    {movie.runtime != null && <span>{movie.runtime} min</span>}
+                    {movie.runtime != null && <span>{movie.runtime} {t('minutes')}</span>}
                     <span>{movie.genres.map((g) => g.name).join(' · ')}</span>
                   </div>
 
@@ -110,7 +111,7 @@ export function MovieDetailPage() {
                         onClick={() => setTrailerOpen(true)}
                         className="rounded-full bg-[var(--color-brand)] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[var(--color-brand-light)] transition-colors"
                       >
-                        ▶ Play Trailer
+                        {t('hero.playTrailer')}
                       </button>
                     )}
 
@@ -119,7 +120,7 @@ export function MovieDetailPage() {
                       onClick={() => {}}
                       className="rounded-full border border-[var(--color-border)] px-6 py-2.5 text-sm font-semibold text-[var(--color-text-primary)] hover:bg-[var(--color-bg-card)] transition-colors"
                     >
-                      + Watchlist
+                      {t('watchlist')}
                     </button>
                   </div>
                 </div>
@@ -129,9 +130,9 @@ export function MovieDetailPage() {
             {/* Overview */}
             <ErrorBoundary>
               <section className="mb-10 px-6">
-                <h2 className="mb-3 text-xl font-bold text-[var(--color-text-primary)]">Overview</h2>
+                <h2 className="mb-3 text-xl font-bold text-[var(--color-text-primary)]">{t('overview')}</h2>
                 <p className="max-w-4xl leading-relaxed text-[var(--color-text-secondary)]">
-                  {movie.overview || 'No overview available.'}
+                  {movie.overview || t('noOverviewAvailable')}
                 </p>
               </section>
             </ErrorBoundary>
@@ -142,8 +143,8 @@ export function MovieDetailPage() {
             </ErrorBoundary>
 
             {/* Similar + Recommended */}
-            <RowSection title="Similar" row={similar} />
-            <RowSection title="Recommended" row={recommended} />
+            <RowSection title={t('similar')} row={similar} />
+            <RowSection title={t('recommended')} row={recommended} />
 
             <TrailerModal
               isOpen={trailerOpen}

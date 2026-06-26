@@ -1,0 +1,19 @@
+{
+    "nav": {
+      "home": "Inicio",
+      "watchlist": "Mi lista",
+      "lists": "Listas",
+      "settings": "Ajustes",
+      "searchPlaceholder": "Buscar películas, series...",
+      "signOut": "Cerrar sesión"
+    },
+    "actions": {
+      "tryAgain": "Intentar de nuevo",
+      "backToHome": "Volver al inicio"
+    },
+    "states": {
+      "loading": "Cargando...",
+      "noResults": "No se encontraron resultados.",
+      "notFound": "Página no encontrada"
+    }
+  }

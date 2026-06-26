@@ -1,10 +1,14 @@
 import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom'
 import { clearSession, getSession } from '@/Auth'
+import { observer } from 'mobx-react-lite'
+import { ThemeToggle } from '@/Preferences/ui/ThemeToggle'
+import { preferencesStore } from '@/Preferences'
+import { useTranslation } from 'react-i18next'
+export const ShellLayout = observer(function ShellLayout() {
 
-export function ShellLayout() {
   const navigate = useNavigate()
   const session = getSession()
-
+  const { t } = useTranslation('common')
   // Derive initials from email — e.g. "user@cineview.com" → "U"
   const initials = session?.username
     ? session.username[0].toUpperCase()
@@ -26,16 +30,16 @@ export function ShellLayout() {
             to="/"
             className="text-lg font-bold text-[var(--color-text-primary)] hover:text-[var(--color-brand-light)] transition-colors shrink-0"
           >
-            Cine View
+            {t('nav.title')}
           </Link>
 
           {/* Nav links */}
           <div className="flex items-center gap-1">
             {[
-              { to: '/', label: 'Home', end: true },
-              { to: '/watchlist', label: 'Watchlist', badge: null },
-              { to: '/lists', label: 'Lists' },
-              { to: '/settings', label: 'Settings' },
+              { to: '/', label: t('nav.home'), end: true },
+              { to: '/watchlist', label: t('nav.watchlist'), badge: null },
+              { to: '/lists', label: t('nav.lists') },
+              { to: '/settings', label: t('nav.settings') },
             ].map(({ to, label, end, badge }) => (
               <NavLink
                 key={to}
@@ -51,7 +55,7 @@ export function ShellLayout() {
               >
                 {label}
                 {/* Watchlist badge — wired to store in M5, shows 0 for now */}
-                {label === 'Watchlist' && (
+                {label === t('nav.watchlist') && (
                   <span className="ml-1.5 inline-flex items-center justify-center w-4 h-4 rounded-full bg-[var(--color-brand)] text-white text-[10px] font-bold leading-none">
                     0
                   </span>
@@ -66,32 +70,19 @@ export function ShellLayout() {
             <button
               type="button"
               onClick={() => navigate('/search')}
-              className="flex items-center gap-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-full px-4 py-1.5 w-52 text-sm text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)] transition-colors"
+              className="flex items-center gap-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-full px-4 py-1.5 w-52 text-sm text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)] transition-colors whitespace-nowrap"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
               </svg>
-              Search movies, shows...
+              {t('nav.searchPlaceholder')}
             </button>
 
             {/* Theme toggle placeholder — wired in M4 */}
-            <button
-              type="button"
-              aria-label="Toggle theme"
-              className="w-8 h-8 flex items-center justify-center rounded-full text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-card)] transition-colors"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="5"/>
-                <line x1="12" y1="1" x2="12" y2="3"/>
-                <line x1="12" y1="21" x2="12" y2="23"/>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                <line x1="1" y1="12" x2="3" y2="12"/>
-                <line x1="21" y1="12" x2="23" y2="12"/>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-              </svg>
-            </button>
+            <ThemeToggle
+              theme={preferencesStore.theme}
+              onToggle={() => preferencesStore.toggleTheme()}
+            />
 
             {/* Avatar with dropdown */}
             <div className="relative group">
@@ -106,15 +97,9 @@ export function ShellLayout() {
               {/* Dropdown */}
               <div className="absolute right-0 top-full mt-2 w-44 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 overflow-hidden">
                 <div className="px-4 py-3 border-b border-[var(--color-border)]">
-                  <p className="text-xs text-[var(--color-text-muted)] truncate">{session?.username}</p>
+                  <p className="text-xs text-[var(--color-text-muted)] truncate">{t('nav.username', { username: session?.username })}</p>
                 </div>
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="w-full text-left px-4 py-2.5 text-sm text-[var(--color-text-secondary)] hover:text-red-400 hover:bg-red-500/5 transition-colors"
-                >
-                  Sign out
-                </button>
+                
               </div>
             </div>
           </div>
@@ -130,27 +115,27 @@ export function ShellLayout() {
       <footer className="border-t border-[var(--color-border)] py-8 px-6" style={{ background: '#0d1117' }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-6">
           <div>
-            <p className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">Cine View</p>
+            <p className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">{t('footer.title')}</p>
             <p className="text-xs text-[var(--color-text-muted)] max-w-xs leading-relaxed">
-              Your ultimate destination for cinematic discovery and personalized entertainment.
+              {t('footer.description')}
             </p>
-            <p className="text-xs text-[var(--color-text-muted)] mt-2">© 2024 Cine View. Data provided by TMDB.</p>
-          </div>
+            <p className="text-xs text-[var(--color-text-muted)] mt-2">© {new Date().getFullYear()} Cine View. {t('footer.dataProvidedBy', { tmdb: 'TMDB' })}</p>
+          </div>  
 
           <div className="flex gap-12 text-xs text-[var(--color-text-muted)]">
             <div className="flex flex-col gap-2">
-              <p className="font-semibold text-[var(--color-text-secondary)] mb-1">Explore</p>
-              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">About</span>
-              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">Contact</span>
+              <p className="font-semibold text-[var(--color-text-secondary)] mb-1">{t('footer.explore')}</p>
+              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('nav.about')}</span>
+              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('nav.contact')}</span>
             </div>
             <div className="flex flex-col gap-2">
-              <p className="font-semibold text-[var(--color-text-secondary)] mb-1">Legal</p>
-              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">Privacy Policy</span>
-              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">Terms of Service</span>
+              <p className="font-semibold text-[var(--color-text-secondary)] mb-1">{t('footer.legal')}</p>
+              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('nav.privacyPolicy')}</span>
+              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('nav.termsOfService')}</span>
             </div>
           </div>
         </div>
       </footer>
     </div>
   )
-}
+})

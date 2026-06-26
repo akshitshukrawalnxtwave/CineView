@@ -8,7 +8,7 @@ function pickTrailerKey(videos: { key: string; site: string; type: string }[]): 
   return trailer?.key ?? null
 }
 
-export function useTVShowDetail() {
+export function useTVShowDetail(language: string, region: string) {
   const { id } = useParams()
   const showId = Number(id)
 
@@ -54,11 +54,11 @@ export function useTVShowDetail() {
     } finally {
       setIsLoading(false)
     }
-  }, [showId])
+  }, [showId, language, region])
 
   useEffect(() => {
     void fetchShow()
-  }, [fetchShow])
+  }, [fetchShow, language, region])
 
   return { show, cast, trailerKey, isLoading, error, notFound, refetch: fetchShow }
 }

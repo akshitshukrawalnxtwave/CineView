@@ -1,0 +1,35 @@
+{
+    "rows": {
+      "popular": "Popular",
+      "topRated": "Mejor valoradas",
+      "airingToday": "En emisión hoy"
+    },
+    "details": {
+      "overview": "Sinopsis",
+      "cast": "Reparto",
+      "episodes": "Episodios",
+      "seasons": "Temporadas"
+    },
+    "hero": {
+      "playTrailer": "Reproducir tráiler",
+      "watchlist": "Mi lista"
+    },
+    "states": {
+      "noOverview": "Sinopsis no disponible.",
+      "noResults": "No se encontraron resultados.",
+      "noEpisodes": "No se encontraron episodios.",
+      "noSeasons": "No se encontraron temporadas.",
+      "noCast": "No se encontraron actores.",
+      "noTrailers": "No se encontraron tráilers.",
+      "noRecommendations": "No se encontraron recomendaciones.",
+      "noSimilar": "No se encontraron similares."
+    },
+    "actions": {
+      "markEpisodeAsWatched": "Marcar episodio como visto",
+      "markSeasonAsWatched": "Marcar temporada como vista",
+      "markShowAsWatched": "Marcar serie como vista"
+    },
+    "seasonCount_one": "{{count}} temporada",
+    "seasonCount_other": "{{count}} temporadas",
+    "notFound": "Serie no encontrada"
+  }

@@ -44,7 +44,7 @@ async function fetchRow(
   }
 }
 
-export function useHomePage(): UseHomePageResult {
+export function useHomePage(language: string, region: string): UseHomePageResult {
   const [heroMovie, setHeroMovie] = useState<MediaItem | null>(null)
   const [genres, setGenres] = useState<Genre[]>([])
   const [activeGenreId, setActiveGenreId] = useState<number | null>(null)
@@ -53,6 +53,7 @@ export function useHomePage(): UseHomePageResult {
   const [popular, setPopular] = useState<RowState>(emptyRow)
   const [topRated, setTopRated] = useState<RowState>(emptyRow)
   const [upcoming, setUpcoming] = useState<RowState>(emptyRow)
+  
 
   const loadRows = useCallback(async (genreId: number | null) => {
     setTrending((r) => ({ ...r, isLoading: true, error: null }))
@@ -91,11 +92,10 @@ export function useHomePage(): UseHomePageResult {
   useEffect(() => {
     void loadGenres()
     void loadRows(null)
-  }, [loadGenres, loadRows])
-
+  }, [loadGenres, loadRows, language, region])
   useEffect(() => {
     void loadRows(activeGenreId)
-  }, [activeGenreId, loadRows])
+  }, [activeGenreId, loadRows, language, region])
 
   return {
     heroMovie,

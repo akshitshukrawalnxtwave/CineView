@@ -1,5 +1,6 @@
 import { posterUrl } from '@/Common'
 import type { CastMember } from '../core/types'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   cast: CastMember[]
@@ -8,9 +9,11 @@ interface Props {
 export function CastCarousel({ cast }: Props) {
   if (cast.length === 0) return null
 
+  const { t } = useTranslation('movies')
+
   return (
     <section className="mb-10">
-      <h2 className="mb-4 px-6 text-xl font-bold text-[var(--color-text-primary)]">Cast</h2>
+      <h2 className="mb-4 px-6 text-xl font-bold text-[var(--color-text-primary)]">{t('cast')}</h2>
 
       <div className="flex gap-4 overflow-x-auto px-6 pb-2">
         {cast.map((member) => {

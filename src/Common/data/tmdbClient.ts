@@ -1,7 +1,8 @@
+import { preferencesStore } from '@/Preferences/core/preferencesStore'
+import { z } from 'zod'
+
 const BASE = import.meta.env.VITE_TMDB_BASE_URL
 const TOKEN = import.meta.env.VITE_TMDB_ACCESS_TOKEN
-
-import { z } from 'zod'
 
 export async function tmdbFetch<T>(
   path: string,
@@ -9,6 +10,11 @@ export async function tmdbFetch<T>(
   params?: Record<string, string | number>
 ): Promise<T> {
   const url = new URL(`${BASE}${path}`)
+
+  // Always from store — every TMDB call picks up current prefs
+  url.searchParams.set('language', preferencesStore.tmdbLanguage)
+  url.searchParams.set('region', preferencesStore.region)
+
   if (params) {
     Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, String(v)))
   }
@@ -25,5 +31,5 @@ export async function tmdbFetch<T>(
   }
 
   const json = await res.json()
-  return schema.parse(json)   // Zod validation here
+  return schema.parse(json)
 }
