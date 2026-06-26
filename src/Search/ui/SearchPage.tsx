@@ -1,4 +1,3 @@
-import { AsyncSection } from '@/Common'
 import { SearchResults } from './SearchResults'
 import { useSearch } from './useSearch'
 import { useTranslation } from 'react-i18next'

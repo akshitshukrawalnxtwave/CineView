@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // Placeholder page components — replaced milestone by milestone
 import { LoginPage } from '@/Auth/ui/LoginPage'

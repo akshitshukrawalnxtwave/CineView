@@ -1,5 +1,5 @@
 // core/preferencesStore.ts
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import { preferencesSchema } from './preferencesSchema'
 import i18n from '../i18n'
 import { loadPreferences, savePreferences } from './preferencesSchema'

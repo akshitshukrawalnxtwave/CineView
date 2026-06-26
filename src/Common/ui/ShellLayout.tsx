@@ -14,11 +14,6 @@ export const ShellLayout = observer(function ShellLayout() {
     ? session.username[0].toUpperCase()
     : 'U'
 
-  function handleLogout() {
-    clearSession()
-    navigate('/login', { replace: true })
-  }
-
   return (
     <div className="min-h-screen flex flex-col bg-[var(--color-bg-primary)]">
       {/* Navbar */}
@@ -40,7 +35,7 @@ export const ShellLayout = observer(function ShellLayout() {
               { to: '/watchlist', label: t('nav.watchlist'), badge: null },
               { to: '/lists', label: t('nav.lists') },
               { to: '/settings', label: t('nav.settings') },
-            ].map(({ to, label, end, badge }) => (
+            ].map(({ to, label, end, badge = null }) => (
               <NavLink
                 key={to}
                 to={to}
