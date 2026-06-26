@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom'
-import { clearSession, getSession } from '@/Auth'
+import { getSession } from '@/Auth'
 import { observer } from 'mobx-react-lite'
 import { ThemeToggle } from '@/Preferences/ui/ThemeToggle'
 import { preferencesStore } from '@/Preferences'
@@ -32,10 +32,10 @@ export const ShellLayout = observer(function ShellLayout() {
           <div className="flex items-center gap-1">
             {[
               { to: '/', label: t('nav.home'), end: true },
-              { to: '/watchlist', label: t('nav.watchlist'), badge: null },
+              { to: '/watchlist', label: t('nav.watchlist'), badge: 0 },
               { to: '/lists', label: t('nav.lists') },
               { to: '/settings', label: t('nav.settings') },
-            ].map(({ to, label, end, badge = null }) => (
+            ].map(({ to, label, end, badge }) => (
               <NavLink
                 key={to}
                 to={to}
@@ -52,7 +52,7 @@ export const ShellLayout = observer(function ShellLayout() {
                 {/* Watchlist badge — wired to store in M5, shows 0 for now */}
                 {label === t('nav.watchlist') && (
                   <span className="ml-1.5 inline-flex items-center justify-center w-4 h-4 rounded-full bg-[var(--color-brand)] text-white text-[10px] font-bold leading-none">
-                    0
+                    {badge}
                   </span>
                 )}
               </NavLink>
