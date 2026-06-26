@@ -120,13 +120,13 @@ export const ShellLayout = observer(function ShellLayout() {
           <div className="flex gap-12 text-xs text-[var(--color-text-muted)]">
             <div className="flex flex-col gap-2">
               <p className="font-semibold text-[var(--color-text-secondary)] mb-1">{t('footer.explore')}</p>
-              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('nav.about')}</span>
-              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('nav.contact')}</span>
+              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('footer.about')}</span>
+              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('footer.contact')}</span>
             </div>
             <div className="flex flex-col gap-2">
               <p className="font-semibold text-[var(--color-text-secondary)] mb-1">{t('footer.legal')}</p>
-              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('nav.privacyPolicy')}</span>
-              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('nav.termsOfService')}</span>
+              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('footer.privacyPolicy')}</span>
+              <span className="hover:text-[var(--color-text-primary)] cursor-pointer transition-colors">{t('footer.termsOfService')}</span>
             </div>
           </div>
         </div>
