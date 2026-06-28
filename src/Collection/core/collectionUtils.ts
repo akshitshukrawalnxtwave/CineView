@@ -1,7 +1,15 @@
-import type { MediaRef, WatchlistEntry, WatchlistStatus } from './watchlistSchema'
+import type { MediaRef, WatchlistEntry, WatchlistStatus } from './collectionSchema'
 
 export function mediaKey(media: MediaRef): string {
   return `${media.mediaType}:${media.mediaId}`
+}
+
+export function episodeKey(tvId: number, season: number, episode: number): string {
+  return `${tvId}:${season}:${episode}`
+}
+
+export function isEpisodeKeyForShow(key: string, tvId: number): boolean {
+  return key.startsWith(`${tvId}:`)
 }
 
 export type SortKey = 'dateAdded' | 'rating' | 'title'
@@ -21,4 +29,21 @@ export function filterByStatus(
 ): WatchlistEntry[] {
   if (status === 'all') return entries
   return entries.filter((e) => e.status === status)
+}
+
+export function snapshotFromMediaItem(item: {
+  title: string
+  posterPath: string | null
+  voteAverage: number
+  mediaType: 'movie' | 'tv'
+  totalEpisodes?: number
+}) {
+  return {
+    title: item.title,
+    posterPath: item.posterPath,
+    voteAverage: item.voteAverage,
+    ...(item.mediaType === 'tv' && item.totalEpisodes != null
+      ? { totalEpisodes: item.totalEpisodes }
+      : {}),
+  }
 }

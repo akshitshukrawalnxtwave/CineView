@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-// Placeholder page components — replaced milestone by milestone
 import { LoginPage } from '@/Auth/ui/LoginPage'
 import { ShellLayout } from '@/Common/ui/ShellLayout'
 import { HomePage } from '@/Movies/ui/HomePage'
@@ -8,9 +7,11 @@ import { MovieDetailPage } from '@/Movies/ui/MovieDetailPage'
 import { TVShowDetailPage } from '@/TVShows/ui/TVShowDetailPage'
 import { SeasonDetailPage } from '@/TVShows/ui/SeasonDetailPage'
 import { SearchPage } from '@/Search/ui/SearchPage'
-import { WatchlistPage } from '@/Collection/ui/WatchlistPage'
-import { MyListsPage } from '@/Collection/ui/MyListsPage'
-import { ListDetailPage } from '@/Collection/ui/ListDetailPage'
+import {
+  WatchlistPage,
+  MyListsPage,
+  ListDetailPage,
+} from '@/Collection'
 import { SettingsPage } from '@/Preferences/ui/SettingsPage'
 import { NotFoundPage } from '@/Common/ui/NotFoundPage'
 import { ProtectedRoute } from '@/Auth/ui/ProtectedRoute'

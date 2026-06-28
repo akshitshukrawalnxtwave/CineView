@@ -1,24 +1,53 @@
 {
-    "title": "Watchlist",
-    "addToWatchlist": "Add to watchlist",
-    "removeFromWatchlist": "Remove from watchlist",
-    "remove": "Remove",
-    "empty": "Your watchlist is empty. Browse movies and shows to add some!",
-    "emptyFiltered": "No items with this status.",
-    "note": "Note",
-    "notePlaceholder": "Add a note (max 300 characters)...",
-    "movie": "Movie",
-    "tvShow": "TV Show",
-    "filters": {
-      "all": "All",
-      "want_to_watch": "Want to watch",
-      "watching": "Watching",
-      "completed": "Completed"
-    },
-    "sort": {
-      "label": "Sort by",
-      "dateAdded": "Date added",
-      "rating": "Rating",
-      "title": "Title"
-    }
+  "title": "Watchlist",
+  "addToWatchlist": "Add to watchlist",
+  "removeFromWatchlist": "Remove from watchlist",
+  "remove": "Remove",
+  "empty": "Your watchlist is empty. Browse movies and shows to add some!",
+  "emptyFiltered": "No items with this status.",
+  "note": "Note",
+  "notePlaceholder": "Add a note (max 300 characters)...",
+  "movie": "Movie",
+  "tvShow": "TV Show",
+  "filters": {
+    "all": "All",
+    "want_to_watch": "Want to watch",
+    "watching": "Watching",
+    "completed": "Completed"
+  },
+  "sort": {
+    "label": "Sort by",
+    "dateAdded": "Date added",
+    "rating": "Rating",
+    "title": "Title"
+  },
+  "lists": {
+    "title": "My Lists",
+    "create": "Create list",
+    "name": "List name",
+    "description": "Description (optional)",
+    "empty": "No lists yet. Create one to organize your favorites.",
+    "emptyItems": "This list is empty. Add movies and shows from browse pages.",
+    "emptyPreview": "No items yet",
+    "itemCount_one": "{{count}} item",
+    "itemCount_other": "{{count}} items",
+    "deleteTitle": "Delete list",
+    "delete": "Delete",
+    "deleteConfirm": "Delete \"{{name}}\"? Items will not be removed from your watchlist.",
+    "addToList": "Add to list",
+    "notFound": "List not found",
+    "backToLists": "Back to My Lists"
+  },
+  "notes": {
+    "add": "Add note",
+    "edit": "Edit note",
+    "save": "Save",
+    "cancel": "Cancel",
+    "clear": "Clear note",
+    "counter": "{{count}} / 300",
+    "hasNote": "Has note"
+  },
+  "progress": {
+    "episodes": "{{watched}} / {{total}} episodes"
   }
+}

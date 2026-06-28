@@ -1,6 +1,12 @@
-export const VALID_EMAIL = 'user'
-export const VALID_PASSWORD = '123'
+export const VALID_EMAIL = 'user@cineview.com'
+export const VALID_PASSWORD = 'Pass123'
 
-export function checkCredentials(email: string, password: string): boolean {
-  return email.trim().toLowerCase() === VALID_EMAIL && password === VALID_PASSWORD
+export function checkCredentials(
+  email: string,
+  password: string
+): boolean {
+  return (
+    email.toLowerCase() === VALID_EMAIL.toLowerCase() &&
+    password === VALID_PASSWORD
+  )
 }

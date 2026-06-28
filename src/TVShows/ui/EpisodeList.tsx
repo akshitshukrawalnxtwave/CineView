@@ -1,18 +1,26 @@
+import { observer } from 'mobx-react-lite'
 import { posterUrl } from '@/Common'
+import { collectionStore } from '@/Collection'
 import type { Episode } from '../core/types'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
+  tvId: number
+  seasonNumber: number
   episodes: Episode[]
 }
 
-export function EpisodeList({ episodes }: Props) {
+export const EpisodeList = observer(function EpisodeList({
+  tvId,
+  seasonNumber,
+  episodes,
+}: Props) {
   const { t } = useTranslation('tv')
 
   if (episodes.length === 0) {
     return (
       <p className="px-6 py-8 text-center text-[var(--color-text-muted)]">
-        {t('noEpisodes')}
+        {t('states.noEpisodes')}
       </p>
     )
   }
@@ -21,6 +29,11 @@ export function EpisodeList({ episodes }: Props) {
     <div className="space-y-4 px-6">
       {episodes.map((episode) => {
         const still = posterUrl(episode.still_path, 'w300')
+        const watched = collectionStore.isEpisodeWatched(
+          tvId,
+          seasonNumber,
+          episode.episode_number
+        )
 
         return (
           <article
@@ -44,26 +57,28 @@ export function EpisodeList({ episodes }: Props) {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-xs text-[var(--color-text-muted)]">
-                    {t('seasonCount_one', { count: episode.episode_number })}
+                    E{episode.episode_number}
                     {episode.air_date && ` · ${episode.air_date}`}
-                    {episode.runtime != null && ` · ${episode.runtime} ${t('minutes')}`}
+                    {episode.runtime != null && ` · ${episode.runtime} min`}
                   </p>
                   <h3 className="font-semibold text-[var(--color-text-primary)]">
                     {episode.name}
                   </h3>
                 </div>
 
-                {/* Placeholder — wired in M6 */}
                 <input
                   type="checkbox"
-                  disabled
-                  aria-label={t('actions.markEpisodeAsWatched', { count: episode.episode_number })}
-                  className="mt-1 h-4 w-4 cursor-not-allowed opacity-50"
+                  checked={watched}
+                  onChange={() =>
+                    collectionStore.toggleEpisode(tvId, seasonNumber, episode.episode_number)
+                  }
+                  aria-label={t('actions.markEpisodeAsWatched')}
+                  className="mt-1 h-4 w-4 accent-[var(--color-brand)]"
                 />
               </div>
 
               <p className="mt-2 line-clamp-3 text-sm text-[var(--color-text-secondary)]">
-                {episode.overview || t('states.noResults')}
+                {episode.overview || t('states.noOverview')}
               </p>
             </div>
           </article>
@@ -71,4 +86,4 @@ export function EpisodeList({ episodes }: Props) {
       })}
     </div>
   )
-}
+})

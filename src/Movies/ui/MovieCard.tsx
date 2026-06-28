@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { PosterImage } from '@/Common'
 import type { MediaItem } from '@/Common'
-import { WatchlistToggle } from '@/Collection'
+import { WatchlistToggle, AddToListPopover } from '@/Collection'
 
 interface Props {
   movie: MediaItem
@@ -20,12 +20,11 @@ export function MovieCard({ movie }: Props) {
             className="aspect-[2/3] w-full transition-transform duration-300 group-hover:scale-105"
           />
 
-          {/* Rating badge */}
           <span className="absolute right-2 top-2 rounded-md bg-black/70 px-1.5 py-0.5 text-xs font-semibold text-[var(--color-rating)]">
             {movie.voteAverage.toFixed(1)}
           </span>
 
-          {/* Watchlist placeholder — wired in M5 */}
+          <AddToListPopover item={movie} />
           <WatchlistToggle item={movie} />
         </div>
 

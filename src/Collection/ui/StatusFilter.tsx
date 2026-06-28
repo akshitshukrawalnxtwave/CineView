@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import type { WatchlistStatus } from '../core/watchlistSchema'
+import type { WatchlistStatus } from '../core/collectionSchema'
 
 type FilterStatus = WatchlistStatus | 'all'
 

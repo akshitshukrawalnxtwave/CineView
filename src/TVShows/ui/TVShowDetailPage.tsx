@@ -1,37 +1,50 @@
 import { useState } from 'react'
 import { Link, NavLink, Outlet, useParams } from 'react-router-dom'
+import { observer } from 'mobx-react-lite'
 import { AsyncSection, ErrorBoundary, backdropUrl, PosterImage } from '@/Common'
 import { CastCarousel } from '@/Movies/ui/CastCarousel'
 import { TrailerModal } from '@/Movies/ui/TrailerModal'
 import { useTVShowDetail } from './useTVShowDetail'
 import { useTranslation } from 'react-i18next'
 import { preferencesStore } from '@/Preferences'
-import { WatchlistToggle } from '@/Collection'
-import { tvShowToMediaItem } from '../core/types'
+import { WatchlistToggle, AddToListPopover, collectionStore } from '@/Collection'
+import { totalEpisodesFromSeasons, tvShowToMediaItem } from '../core/types'
 
-export function TVShowDetailPage() {
+export const TVShowDetailPage = observer(function TVShowDetailPage() {
   const { id } = useParams()
-  const { show, cast, trailerKey, isLoading, error, notFound, refetch } = useTVShowDetail(preferencesStore.tmdbLanguage, preferencesStore.tmdbRegion)
+  const { show, cast, trailerKey, isLoading, error, notFound, refetch } = useTVShowDetail(
+    preferencesStore.tmdbLanguage,
+    preferencesStore.tmdbRegion
+  )
   const [trailerOpen, setTrailerOpen] = useState(false)
   const { t } = useTranslation('tv')
+
   if (notFound) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
         <h1 className="text-6xl font-bold text-[var(--color-brand-light)]">404</h1>
         <p className="mt-4 text-[var(--color-text-secondary)]">{t('notFound')}</p>
-        <Link to="/" className="mt-6 rounded-full bg-[var(--color-brand)] px-6 py-2.5 text-sm font-semibold text-white">
-          {t('backToHome')}
+        <Link
+          to="/"
+          className="mt-6 rounded-full bg-[var(--color-brand)] px-6 py-2.5 text-sm font-semibold text-white"
+        >
+          {t('common:actions.backToHome')}
         </Link>
       </div>
     )
   }
 
+  const mediaItem = show ? tvShowToMediaItem(show) : null
+  const totalEpisodes = show ? totalEpisodesFromSeasons(show.seasons) : 0
+  const showProgress = show
+    ? collectionStore.getShowProgress(show.id, show.seasons)
+    : null
+
   return (
     <div className="pb-10">
       <AsyncSection isLoading={isLoading} error={error} onRetry={refetch}>
-        {show && (
+        {show && mediaItem && (
           <>
-            {/* Hero */}
             <section className="relative mb-8 h-[420px] w-full overflow-hidden">
               {backdropUrl(show.backdrop_path) ? (
                 <img
@@ -57,10 +70,31 @@ export function TVShowDetailPage() {
                       {show.vote_average.toFixed(1)}
                     </span>
                     {show.first_air_date && <span>{show.first_air_date.slice(0, 4)}</span>}
-                    <span>{t('seasonCount_other', { count: show.number_of_seasons })}</span>
+                    <span>{t('seasonCount', { count: show.number_of_seasons })}</span>
                     <span>{show.genres.map((g) => g.name).join(' · ')}</span>
                   </div>
-                  <div className="mt-6 flex gap-3">
+
+                  {showProgress && showProgress.total > 0 && (
+                    <div className="mt-4 max-w-md">
+                      <div className="mb-1 flex justify-between text-xs text-[var(--color-text-secondary)]">
+                        <span>
+                          {t('progress.show', {
+                            watched: showProgress.watched,
+                            total: showProgress.total,
+                          })}
+                        </span>
+                        <span>{showProgress.percent}%</span>
+                      </div>
+                      <div className="h-2 overflow-hidden rounded-full bg-black/40">
+                        <div
+                          className="h-full rounded-full bg-[var(--color-brand-light)] transition-all"
+                          style={{ width: `${showProgress.percent}%` }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="mt-6 flex flex-wrap gap-3">
                     {trailerKey && (
                       <button
                         type="button"
@@ -70,23 +104,30 @@ export function TVShowDetailPage() {
                         {t('hero.playTrailer')}
                       </button>
                     )}
-                    <WatchlistToggle item={tvShowToMediaItem(show)} variant="button" />
+                    <WatchlistToggle
+                      item={mediaItem}
+                      variant="button"
+                      options={{ totalEpisodes }}
+                    />
+                    <AddToListPopover item={mediaItem} variant="button" />
                   </div>
                 </div>
               </div>
             </section>
 
-            {/* Overview */}
             <section className="mb-8 px-6">
-              <h2 className="mb-3 text-xl font-bold text-[var(--color-text-primary)]">{t('details.overview')}</h2>
+              <h2 className="mb-3 text-xl font-bold text-[var(--color-text-primary)]">
+                {t('details.overview')}
+              </h2>
               <p className="max-w-4xl text-[var(--color-text-secondary)]">
-                {show.overview || t('details.noOverviewAvailable')}
+                {show.overview || t('states.noOverview')}
               </p>
             </section>
 
-            {/* Seasons */}
             <section className="mb-8 px-6">
-              <h2 className="mb-4 text-xl font-bold text-[var(--color-text-primary)]">{t('details.seasons')}</h2>
+              <h2 className="mb-4 text-xl font-bold text-[var(--color-text-primary)]">
+                {t('details.seasons')}
+              </h2>
               <div className="flex flex-wrap gap-2">
                 {show.seasons
                   .filter((s) => s.season_number > 0)
@@ -102,16 +143,14 @@ export function TVShowDetailPage() {
                         }`
                       }
                     >
-                      {s.name} ({t('seasonCount_one', { count: s.episode_count })})
+                      {s.name} ({s.episode_count})
                     </NavLink>
                   ))}
               </div>
             </section>
 
-            {/* Nested season outlet */}
             <Outlet />
 
-            {/* Cast */}
             <ErrorBoundary>
               <CastCarousel cast={cast} />
             </ErrorBoundary>
@@ -127,4 +166,4 @@ export function TVShowDetailPage() {
       </AsyncSection>
     </div>
   )
-}
+})

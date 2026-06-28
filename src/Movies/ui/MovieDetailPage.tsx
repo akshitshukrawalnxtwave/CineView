@@ -8,7 +8,7 @@ import { useMovieDetail } from './useMovieDetail'
 import { preferencesStore } from '@/Preferences'
 import { useTranslation } from 'react-i18next'
 import { movieDetailToMediaItem } from '../core/types'
-import { WatchlistToggle } from '@/Collection'
+import { WatchlistToggle, AddToListPopover } from '@/Collection'
 function RowSection({
   title,
   row,
@@ -117,6 +117,7 @@ export function MovieDetailPage() {
                       </button>
                     )}
                     <WatchlistToggle item={movieDetailToMediaItem(movie)} variant="button" />
+                    <AddToListPopover item={movieDetailToMediaItem(movie)} variant="button" />
                   </div>
                 </div>
               </div>

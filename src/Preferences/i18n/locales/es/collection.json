@@ -1,24 +1,53 @@
 {
-    "title": "Mi lista",
-    "addToWatchlist": "Añadir a mi lista",
-    "removeFromWatchlist": "Quitar de mi lista",
-    "remove": "Eliminar",
-    "empty": "Tu lista está vacía. ¡Explora películas y series para añadir algunas!",
-    "emptyFiltered": "No hay elementos con este estado.",
-    "note": "Nota",
-    "notePlaceholder": "Añade una nota (máx. 300 caracteres)...",
-    "movie": "Película",
-    "tvShow": "Serie",
-    "filters": {
-      "all": "Todos",
-      "want_to_watch": "Quiero ver",
-      "watching": "Viendo",
-      "completed": "Completado"
-    },
-    "sort": {
-      "label": "Ordenar por",
-      "dateAdded": "Fecha añadida",
-      "rating": "Valoración",
-      "title": "Título"
-    }
+  "title": "Mi lista",
+  "addToWatchlist": "Añadir a mi lista",
+  "removeFromWatchlist": "Quitar de mi lista",
+  "remove": "Eliminar",
+  "empty": "Tu lista está vacía. ¡Explora películas y series para añadir algunas!",
+  "emptyFiltered": "No hay elementos con este estado.",
+  "note": "Nota",
+  "notePlaceholder": "Añade una nota (máx. 300 caracteres)...",
+  "movie": "Película",
+  "tvShow": "Serie",
+  "filters": {
+    "all": "Todos",
+    "want_to_watch": "Quiero ver",
+    "watching": "Viendo",
+    "completed": "Completado"
+  },
+  "sort": {
+    "label": "Ordenar por",
+    "dateAdded": "Fecha añadida",
+    "rating": "Valoración",
+    "title": "Título"
+  },
+  "lists": {
+    "title": "Mis listas",
+    "create": "Crear lista",
+    "name": "Nombre de la lista",
+    "description": "Descripción (opcional)",
+    "empty": "Aún no tienes listas. Crea una para organizar tus favoritos.",
+    "emptyItems": "Esta lista está vacía. Añade películas y series desde las páginas de exploración.",
+    "emptyPreview": "Sin elementos",
+    "itemCount_one": "{{count}} elemento",
+    "itemCount_other": "{{count}} elementos",
+    "deleteTitle": "Eliminar lista",
+    "delete": "Eliminar",
+    "deleteConfirm": "¿Eliminar \"{{name}}\"? Los elementos no se quitarán de tu lista principal.",
+    "addToList": "Añadir a lista",
+    "notFound": "Lista no encontrada",
+    "backToLists": "Volver a Mis listas"
+  },
+  "notes": {
+    "add": "Añadir nota",
+    "edit": "Editar nota",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "clear": "Borrar nota",
+    "counter": "{{count}} / 300",
+    "hasNote": "Tiene nota"
+  },
+  "progress": {
+    "episodes": "{{watched}} / {{total}} episodios"
   }
+}

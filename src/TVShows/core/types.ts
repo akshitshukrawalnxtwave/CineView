@@ -6,6 +6,14 @@ export type TVShowDetail = z.infer<typeof tvShowDetailSchema>
 export type TVCastMember = z.infer<typeof import('./schemas').tvCreditsSchema>['cast'][number]
 export type Episode = z.infer<typeof import('./schemas').seasonDetailSchema>['episodes'][number]
 
+export function totalEpisodesFromSeasons(
+  seasons: { season_number: number; episode_count: number }[]
+): number {
+  return seasons
+    .filter((s) => s.season_number > 0)
+    .reduce((sum, s) => sum + s.episode_count, 0)
+}
+
 export function tvShowToMediaItem(show: TVShowDetail): MediaItem {
   return {
     id: show.id,

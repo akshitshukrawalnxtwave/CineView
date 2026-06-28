@@ -1,21 +1,32 @@
 // Store
-export { watchlistStore, initWatchlist } from './data/watchlistRepository'
+export {
+  collectionStore,
+  watchlistStore,
+  initCollection,
+  initWatchlist,
+} from './data/collectionRepository'
 
-// Types (from core — re-export for consumers)
+// Types
 export type {
   WatchlistEntry,
   WatchlistStatus,
   MediaRef,
-} from './core/watchlistSchema'
+  CustomList,
+  CustomListItem,
+  CollectionData,
+} from './core/collectionSchema'
 
-// Utils consumers might need
-export { sortEntries, filterByStatus } from './core/watchlistUtils'
-export type { SortKey } from './core/watchlistUtils'
+export type { AddWatchlistOptions } from './core/collectionStore'
 
-// UI pages (for router)
+// Utils
+export { sortEntries, filterByStatus } from './core/collectionUtils'
+export type { SortKey } from './core/collectionUtils'
+
+// UI pages
 export { WatchlistPage } from './ui/WatchlistPage'
 export { MyListsPage } from './ui/MyListsPage'
 export { ListDetailPage } from './ui/ListDetailPage'
 
-// Shared UI widget (for Movies/TV)
+// Shared UI widgets
 export { WatchlistToggle } from './ui/watchlistToggle'
+export { AddToListPopover } from './ui/AddToListPopover'

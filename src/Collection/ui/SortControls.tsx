@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import type { SortKey } from '../core/watchlistUtils'
+import type { SortKey } from '../core/collectionUtils'
 
 interface Props {
   value: SortKey

@@ -29,6 +29,12 @@
     "markSeasonAsWatched": "Mark season as watched",
     "markShowAsWatched": "Mark show as watched"
   },
+  "progress": {
+    "season": "{{watched}} / {{total}} episodes watched",
+    "show": "{{watched}} / {{total}} episodes watched",
+    "markAll": "Mark all as watched",
+    "unmarkAll": "Unmark all"
+  },
   "seasonCount_one": "{{count}} season",
   "seasonCount_other": "{{count}} seasons",
   "notFound": "Show not found"

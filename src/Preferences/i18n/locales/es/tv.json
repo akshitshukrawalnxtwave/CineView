@@ -30,6 +30,12 @@
       "markSeasonAsWatched": "Marcar temporada como vista",
       "markShowAsWatched": "Marcar serie como vista"
     },
+    "progress": {
+      "season": "{{watched}} / {{total}} episodios vistos",
+      "show": "{{watched}} / {{total}} episodios vistos",
+      "markAll": "Marcar todos como vistos",
+      "unmarkAll": "Desmarcar todos"
+    },
     "seasonCount_one": "{{count}} temporada",
     "seasonCount_other": "{{count}} temporadas",
     "notFound": "Serie no encontrada"

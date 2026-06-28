@@ -1,23 +1,18 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PosterImage } from '@/Common'
-import type { WatchlistEntry, WatchlistStatus } from '../core/watchlistSchema'
-import { watchlistStore } from '../data/watchlistRepository'
+import type { WatchlistEntry } from '../core/collectionSchema'
+import { collectionStore } from '../data/collectionRepository'
+import { WatchlistNoteEditor } from './WatchlistNoteEditor'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
   entry: WatchlistEntry
 }
 
-const STATUS_OPTIONS: WatchlistStatus[] = [
-  'want_to_watch',
-  'watching',
-  'completed',
-]
+const STATUS_OPTIONS = ['want_to_watch', 'watching', 'completed'] as const
 
 export function WatchlistItem({ entry }: Props) {
   const { t } = useTranslation('collection')
-  const [note, setNote] = useState(entry.note ?? '')
 
   const href =
     entry.media.mediaType === 'tv'
@@ -27,11 +22,13 @@ export function WatchlistItem({ entry }: Props) {
   const mediaLabel =
     entry.media.mediaType === 'tv' ? t('tvShow') : t('movie')
 
-  function handleNoteBlur() {
-    if (note !== (entry.note ?? '')) {
-      watchlistStore.updateNote(entry.id, note)
-    }
-  }
+  const episodeProgress =
+    entry.media.mediaType === 'tv'
+      ? collectionStore.getShowProgressFromSnapshot(
+          entry.media.mediaId,
+          entry.snapshot.totalEpisodes
+        )
+      : null
 
   return (
     <li className="flex gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-4">
@@ -55,17 +52,27 @@ export function WatchlistItem({ entry }: Props) {
             <p className="text-xs text-[var(--color-text-muted)]">{mediaLabel}</p>
           </div>
 
-          {entry.snapshot.voteAverage != null && (
-            <span className="rounded-md bg-[var(--color-brand)] px-2 py-0.5 text-xs font-bold text-white">
-              {entry.snapshot.voteAverage.toFixed(1)}
-            </span>
-          )}
+          <div className="flex items-center gap-2">
+            {episodeProgress && episodeProgress.watched > 0 && (
+              <span className="rounded-md bg-[var(--color-bg-secondary)] px-2 py-0.5 text-xs text-[var(--color-text-secondary)]">
+                {t('progress.episodes', {
+                  watched: episodeProgress.watched,
+                  total: entry.snapshot.totalEpisodes ?? episodeProgress.watched,
+                })}
+              </span>
+            )}
+            {entry.snapshot.voteAverage != null && (
+              <span className="rounded-md bg-[var(--color-brand)] px-2 py-0.5 text-xs font-bold text-white">
+                {entry.snapshot.voteAverage.toFixed(1)}
+              </span>
+            )}
+          </div>
         </div>
 
         <select
           value={entry.status}
           onChange={(e) =>
-            watchlistStore.updateStatus(entry.id, e.target.value as WatchlistStatus)
+            collectionStore.updateStatus(entry.id, e.target.value as typeof STATUS_OPTIONS[number])
           }
           className="w-fit rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] px-3 py-1.5 text-sm text-[var(--color-text-primary)]"
         >
@@ -76,20 +83,16 @@ export function WatchlistItem({ entry }: Props) {
           ))}
         </select>
 
-        <textarea
-          value={note}
-          onChange={(e) => setNote(e.target.value.slice(0, 300))}
-          onBlur={handleNoteBlur}
-          placeholder={t('notePlaceholder')}
-          rows={2}
-          maxLength={300}
-          className="w-full resize-none rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none focus:border-[var(--color-brand)]"
+        <WatchlistNoteEditor
+          note={entry.note}
+          onSave={(note) => collectionStore.updateNote(entry.id, note)}
+          onClear={() => collectionStore.clearNote(entry.id)}
         />
 
         <div className="flex justify-end">
           <button
             type="button"
-            onClick={() => watchlistStore.remove(entry.media)}
+            onClick={() => collectionStore.removeFromWatchlist(entry.media)}
             className="text-sm text-red-400 hover:underline"
           >
             {t('remove')}
